@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "esbuild": "^0.28.2",
+    "framer-motion": "^14.2.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "name": "signta-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node src/build.cjs"
+  }
+}

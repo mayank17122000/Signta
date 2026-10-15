@@ -1,0 +1,30 @@
+@layer theme, legacy, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "./WhatWeDo.jsx";
+
+/* Scope resets to the React island so the existing website keeps its design. */
+@layer legacy {
+  #portfolio-root h2, #portfolio-root h3, #portfolio-root p { margin: 0; font: inherit; color: inherit; }
+  #portfolio-root h2, #portfolio-root h3 { letter-spacing: inherit; }
+  #portfolio-root button { cursor: pointer; border-width: 0; border-style: solid; background-color: transparent; font: inherit; }
+  #portfolio-root img { display: block; max-width: 100%; }
+  #portfolio-root { margin: 20px 0 40px; border-radius: 20px; overflow: hidden; }
+  #portfolio-root header { border: 0; background: transparent; }
+  #portfolio-root li { list-style-type: disc; }
+  @media (max-width: 680px) { #portfolio-root { margin: 14px 0 28px; border-radius: 12px; } }
+}
+
+/* Soft brand-colored sheen on portfolio cards; no extra animation delay. */
+@layer utilities {
+  #portfolio-root button.group { position: relative; isolation: isolate; box-shadow: 0 3px 14px rgba(21,63,58,.035); transition: box-shadow .25s ease, border-color .2s ease, background-color .2s ease; }
+  #portfolio-root button.group::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; background: linear-gradient(135deg, rgba(255,255,255,.75) 0%, rgba(220,239,158,.09) 35%, transparent 58%); opacity: .65; }
+  #portfolio-root button.group::after { content: ""; position: absolute; top: -25%; bottom: -25%; left: -85%; width: 45%; z-index: 2; pointer-events: none; background: linear-gradient(110deg, transparent 10%, rgba(255,255,255,.12) 30%, rgba(255,255,255,.8) 50%, rgba(231,187,88,.16) 65%, transparent 90%); transform: skewX(-15deg); opacity: 0; }
+  @media (hover:hover) and (pointer:fine) {
+    #portfolio-root button.group:hover { box-shadow: 0 10px 28px rgba(65,119,107,.14), 0 0 0 1px rgba(220,239,158,.25), inset 0 1px 0 rgba(255,255,255,.95); }
+    #portfolio-root button.group:hover::after { animation: signta-sheen .8s ease-out both; }
+  }
+  #portfolio-root button.group:focus-visible { box-shadow: 0 8px 24px rgba(65,119,107,.14); }
+  @keyframes signta-sheen { 0% { left: -85%; opacity: 0; } 15% { opacity: .8; } 75% { opacity: .65; } 100% { left: 140%; opacity: 0; } }
+  @media (prefers-reduced-motion:reduce) { #portfolio-root button.group::after { display:none; } #portfolio-root button.group { transition:none; } }
+}
